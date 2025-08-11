@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pharmstock Prediction</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #fff8f3; padding: 20px; }
+  h1 { text-align: center; color: #d35400; }
+  .box { max-width: 400px; margin: auto; background: white; padding: 20px; border: 2px solid #f6b980; border-radius: 10px; }
+  label { display: block; margin-top: 10px; font-weight: bold; }
+  input, button { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #f6b980; }
+  button { background: #e67e22; color: white; border: none; cursor: pointer; }
+  button:hover { background: #d35400; }
+  .result { margin-top: 15px; padding: 10px; background: #ffe0b2; border-radius: 5px; display: none; }
+</style>
+</head>
+<body>
+
+<h1>Pharmstock Prediction</h1>
+<div class="box">
+  <label>Product Name:</label>
+  <input type="text" id="pname" placeholder="e.g. Paracetamol">
+
+  <label>Sales Date:</label>
+  <input type="date" id="sdate">
+
+  <label>Current Stock:</label>
+  <input type="number" id="stock" placeholder="e.g. 100">
+
+  <label>Average Daily Sales:</label>
+  <input type="number" id="sales" placeholder="e.g. 5">
+
+  <label>Days to Predict:</label>
+  <input type="number" id="days" value="7">
+
+  <button onclick="predict()">Predict Stock</button>
+
+  <div class="result" id="output"></div>
+</div>
+
+<script>
+function predict() {
+  let pname = document.getElementById("pname").value;
+  let sdate = document.getElementById("sdate").value;
+  let stock = parseInt(document.getElementById("stock").value) || 0;
+  let sales = parseInt(document.getElementById("sales").value) || 0;
+  let days = parseInt(document.getElementById("days").value) || 0;
+
+  let predicted = stock - (sales * days);
+  if (predicted < 0) predicted = 0;
+
+  document.getElementById("output").innerHTML =
+    `<b>Product Name:</b> ${pname} <br> 
+     <b>Sales Date:</b> ${sdate} <br> 
+     <b>Predicted Stock after ${days} days:</b> ${predicted}`;
+  document.getElementById("output").style.display = "block";
+}
+</script>
+
+</body>
+</html>
